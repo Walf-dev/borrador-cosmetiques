@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rechercher les représentants des produits Borrador et leurs contacts au Cameroun, Gabon, Tchad">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Les représentants des produits Borrador et leurs contacts</title>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vuetify@1.5.14/dist/vuetify.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css'>
+<link rel="icon" href="./images/borrador-logo.jpg" type="jpg" sizes="18x18" class="img-rounded">
+  <link rel="stylesheet" href="./stylesheets/representants.css">
+  <link rel="stylesheet" href="./stylesheets/home.css">
+  <link rel="stylesheet" href="./stylesheets/footer.css">
+
+</head>
+
+<body>
+<!-- partial:index.partial.html -->
+<%- include about %>
+
+<div id="app">
+    <v-app id="inspire">
+      <v-toolbar dark color="success" fixed>
+        <v-toolbar-title class="white--text"><a href="/"><img src="./images/borrador-logo.jpg" alt="borrador" class="img-fluid rounded borrador"></a> </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-text-field v-model="search" label="Saisissez le nom d'une ville" single-line hide-details></v-text-field>
+      </v-toolbar>
+      <%- include index_nav %>
+          <v-layout v-resize="onResize" column style="padding-top:56px">
+            <v-data-table :headers="headers" :items="villes" :search="search" :pagination.sync="pagination" :hide-headers="isMobile" :class="{mobile: isMobile}">
+              <template slot="items" slot-scope="props">
+                <tr v-if="!isMobile">
+                  <td>{{ props.item.ville }}</td>
+                  <td>{{ props.item.representants }}</td>
+                  <td>{{ props.item.contacts }}</td>
+                </tr>
+                <tr v-else>
+                  <td>
+                    <ul class="flex-content">
+                      <li class="flex-item" data-label="Ville">{{ props.item.ville }}</li>
+                      <li class="flex-item" data-label="Représentant">{{ props.item.representants }}</li>
+                      <li class="flex-item" data-label="Contact">{{ props.item.contacts }}</li>
+                    </ul>
+                  </td>
+                </tr>
+              </template>
+              <v-alert slot="no-results" :value="true" color="error" icon="warning">
+                Aucun résultat pour la recherche "{{ search }}".
+              </v-alert>
+            </v-data-table>
+          </v-layout>
+    </v-app>
+  </div>
+  <%- include footer %>
+
+<!-- partial -->
+<script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/vuetify@1.5.14/dist/vuetify.min.js'></script>
+<script  src="./scripts/representants.js"></script>
+<script  src="./scripts/home.js"></script>
+<script src="https://kit.fontawesome.com/0d148ec622.js" crossorigin="anonymous"></script>
+</body>
+</html>
